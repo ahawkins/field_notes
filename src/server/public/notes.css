@@ -80,6 +80,10 @@ li.date {
 	text-align: right;
 }
 
+footer {
+	margin-bottom: 4em;
+}
+
 footer hr {
 	padding: 0;
 	border: none;
