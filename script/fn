@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+if [ -z "$EDITOR" ]; then
+	echo "EDITOR not set" 1>&2
+	exit 1
+fi
+
+date="$(date "+%Y-%m-%d")"
+name="$(echo "$@" | sed -E 's/[^A-Za-z0-9\-_]+/_/g')"
+
+tempfile=$(mktemp -t field_note)
+
+$EDITOR "$tempfile"
+
+if [ -s "$tempfile" ]; then
+	cat "$tempfile" > "notes/${date}-${name}.md"
+	echo "Note saved. Commit and push eventually."
+else
+	echo "Nothing written in note. Skipping..." 1>&2
+	exit 1
+fi

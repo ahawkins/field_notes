@@ -1,0 +1,38 @@
+<header>
+	<h1>Field Notes from April 2014</h1>
+
+	<p class="home"><a href="/">Home</a></p>
+</header>
+
+{{#sections}}
+	<h2 class="tag">{{name}}</h2>
+
+	{{#entries}}
+		<div class="entry">
+			<p><em>Entry dated {{date}}</em></p>
+
+			<div>{{{html}}}</div>
+		</div>
+	{{/entries}}
+{{/sections}}
+
+{{#pagination}}
+	<div class="pure-g pagination">
+		<div class="previous pure-u-1-2">
+			{{#previous_link}}
+				<a href="{{path}}">&#8592; Previous</a>
+			{{/previous_link}}
+			{{^previous_link}}
+				&nbsp;
+			{{/previous_link}}
+		</div>
+		<div class="next pure-u-1-2">
+			{{#next_link}}
+				<a href="{{path}}">Next &#8594;</a>
+			{{/next_link}}
+			{{^next_link}}
+				&nbsp;
+			{{/next_link}}
+		</div>
+	</div>
+{{/pagination}}

@@ -1,0 +1,22 @@
+<header>
+	<h1>Field Notes</h1>
+</header>
+
+<p>
+	Field notes from the day to work of shipping software from the mind of <a href="hawkins.io">Adam Hawkins</a>.
+	I figure it would be a good to collect all the various things I consume as well as my more free floating thoughts
+	on the profession. You should do the same. It's helpful and also provides a nice catalogue. Notes are grouped
+	by month.
+</p>
+
+{{^dates}}
+<p id="no-field-notes">
+	Unfortunately, nothing written down yet.
+</p>
+{{/dates}}
+
+<ol>
+{{#dates}}
+	<li class="date"><a href="{{link}}">{{text}}</a></li>
+{{/dates}}
+<ol>
