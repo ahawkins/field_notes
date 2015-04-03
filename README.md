@@ -1,6 +1,6 @@
 # Field Notes Microbloggy Application
 
-![Field Notes][http://ecx.images-amazon.com/images/I/61ChcbV2nbL._SY355_.jpg]
+![Field Notes](http://ecx.images-amazon.com/images/I/61ChcbV2nbL._SY355_.jpg)
 
 This repo contains a simple ruby web application for displaying "field
 notes". Its designed to be a companion during your day to day work to
