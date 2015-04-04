@@ -1,11 +1,5 @@
-require 'redcarpet'
-
 module Views
   class Month < Mustache
-    class Render < Redcarpet::Render::HTML
-      include Redcarpet::Render::SmartyPants
-    end
-
     Link = Struct.new :date do
       def path
         "/#{date.strftime("%Y-%m")}"
@@ -16,20 +10,13 @@ module Views
 
     Section = Struct.new :name, :entries
 
-    Note = Struct.new :entry do
+    Note = Struct.new :entry, :markdown do
       def date
         entry.date.strftime "%Y-%m-%d"
       end
 
       def html
-        render = Redcarpet::Markdown.new(Render, {
-          tables: true,
-          fenced_code_blocks: true,
-          strikethrough: true,
-          highlight: true
-        })
-
-        render.render entry.content
+        markdown.html entry.content
       end
     end
 
@@ -77,7 +64,7 @@ module Views
     def sections
       @notes.group_by(&:tag).map do |tag, entries|
         Section.new(tag).tap do |section|
-          section.entries = entries.map { |e| Note.new(e) }
+          section.entries = entries.map { |e| Note.new(e, @markdown_generator) }
         end
       end
     end

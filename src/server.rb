@@ -20,7 +20,9 @@ class Server < Sinatra::Base
 
   get '/:year-:month' do |year, month|
     @date = Date.new year.to_i, month.to_i
+
     @entries = settings.entries
+    @markdown_generator = settings.markdown_generator
 
     mustache :month
   end

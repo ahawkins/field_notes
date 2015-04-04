@@ -98,11 +98,4 @@ class GenerationTest < MiniTest::Test
       end
     end
   end
-
-  private
-
-  def outdent(text)
-    indent = text.scan(/^[ \t]*(?=\S)/).min.size
-    text.gsub(/^[ \t]{#{indent}}/, '')
-  end
 end
