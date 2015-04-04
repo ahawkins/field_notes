@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
+if ! make -q Gemfile.lock; then
+	make Gemfile.lock
+fi
+
 root="$(dirname ${0%/*})"
 exec bundle exec shotgun $@ --require "${root}/boot" "${root}/config.ru"
