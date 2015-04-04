@@ -81,6 +81,10 @@ class ViewingTest < MiniTest::Test
     def date
       find(:css, 'header date').text
     end
+
+    def anchor?(text)
+      page.has_selector? %Q{a[href="##{text}"]}
+    end
   end
 
   attr_reader :gui, :today
@@ -109,7 +113,7 @@ class ViewingTest < MiniTest::Test
   end
 
   def test_monthly_view_displays_year_in_header
-    note = FieldNotes::Entry.new today, 'Note A', 'foo'
+    note = FieldNotes::Entry.new today, 'Note A', 'note-a', 'foo'
 
     gui.data = [ note ]
     gui.open_home_page
@@ -119,8 +123,8 @@ class ViewingTest < MiniTest::Test
   end
 
   def test_entries_are_grouped_by_tag_on_monthly_view
-    note_a = FieldNotes::Entry.new today, 'Note A', 'foo'
-    note_b = FieldNotes::Entry.new today, 'Note B', 'bar'
+    note_a = FieldNotes::Entry.new today, 'Note A', 'note-a', 'foo'
+    note_b = FieldNotes::Entry.new today, 'Note B', 'note-b', 'bar'
 
     gui.data = [ note_a, note_b ]
     gui.open_home_page
@@ -133,9 +137,24 @@ class ViewingTest < MiniTest::Test
     assert_note gui, note_b, 'Note not shown'
   end
 
+  def test_each_note_has_an_anchor_link
+    note_a = FieldNotes::Entry.new today, 'Note A', 'note-a', 'foo'
+    note_b = FieldNotes::Entry.new today, 'Note B', 'note-b', 'bar'
+
+    gui.data = [ note_a, note_b ]
+    gui.open_home_page
+    gui.click today.strftime("%B %Y")
+
+    assert_note gui, note_a, 'Note not shown'
+    assert_note gui, note_b, 'Note not shown'
+
+    assert gui.anchor?(note_a.slug), 'Anchor missing'
+    assert gui.anchor?(note_b.slug), 'Anchor missing'
+  end
+
   def test_displays_previous_link_if_available
-    note_a = FieldNotes::Entry.new today - 31, 'Note A', 'foo'
-    note_b = FieldNotes::Entry.new today, 'Note B', 'bar'
+    note_a = FieldNotes::Entry.new today - 31, 'Note A', 'note-a', 'foo'
+    note_b = FieldNotes::Entry.new today, 'Note B', 'note-b', 'bar'
     refute_equal note_a.month, note_b.month, 'Precondition failed'
 
     gui.data = [ note_a, note_b ]
@@ -153,8 +172,8 @@ class ViewingTest < MiniTest::Test
   end
 
   def test_displays_next_link_if_available
-    note_a = FieldNotes::Entry.new today + 31, 'Note A', 'foo'
-    note_b = FieldNotes::Entry.new today, 'Note B', 'bar'
+    note_a = FieldNotes::Entry.new today + 31, 'Note A', 'note-a', 'foo'
+    note_b = FieldNotes::Entry.new today, 'Note B', 'note-b', 'bar'
     refute_equal note_a.month, note_b.month, 'Precondition failed'
 
     gui.data = [ note_a, note_b ]
@@ -172,7 +191,7 @@ class ViewingTest < MiniTest::Test
   end
 
   def test_does_not_display_useless_pagination
-    note = FieldNotes::Entry.new today, 'Note A', 'foo'
+    note = FieldNotes::Entry.new today, 'Note A', 'note-a', 'foo'
 
     gui.data = [ note ]
     gui.open_home_page

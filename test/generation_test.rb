@@ -49,6 +49,7 @@ class GenerationTest < MiniTest::Test
 
       entries.first.tap do |entry|
         assert_equal 'note', entry.tag
+        assert_equal 'test', entry.slug
         assert_equal 'Free form content', entry.content
         assert_equal Date.new(2015, 01, 02), entry.date
       end

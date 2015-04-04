@@ -11,6 +11,10 @@ module Views
     Section = Struct.new :name, :entries
 
     Note = Struct.new :entry, :markdown do
+      extend Forwardable
+
+      def_delegators :entry, :slug
+
       def date
         entry.date.strftime "%Y-%m-%d"
       end

@@ -8,8 +8,8 @@
 	<h2 class="tag">{{name}}</h2>
 
 	{{#entries}}
-		<div class="entry">
-			<p><em>Entry dated {{date}}</em></p>
+		<div class="entry" id="{{slug}}">
+			<p><em><a href="#{{slug}}">Entry</a> dated {{date}}</em></p>
 
 			<div>{{{html}}}</div>
 		</div>
