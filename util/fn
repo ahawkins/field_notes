@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+editor="${EDITOR:-}"
+field_notes_path="${FIELD_NOTES_PATH:-}"
+
+if [ -z "$editor" ]; then
+	echo "EDITOR not set" 1>&2
+	exit 1
+fi
+
+if [ -z "$field_notes_path" ]; then
+	echo "FIELD_NOTES_PATH not set, don't know where to put notes!" 1>&2
+	exit 1
+fi
+
+date="$(date "+%Y-%m-%d")"
+name="$(echo "$@" | sed -E 's/[^A-Za-z0-9\-_]+/_/g')"
+
+tempfile=$(mktemp -t field_note)
+
+$editor "$tempfile"
+
+if [ -s "$tempfile" ]; then
+	note="${field_notes_path}/${date}-${name}.md"
+	cat "$tempfile" > "$note"
+	echo "Note saved to ${note}. Commit and push eventually."
+else
+	echo "Nothing written in note. Skipping..." 1>&2
+	exit 1
+fi

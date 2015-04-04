@@ -43,7 +43,7 @@ Most work is done at a computer these days. So we have the technology
 to create a simple script that can live with us in the shell. This
 will make it easy to jot down notes in the editor--especially useful
 if you spend the whole day in the terminal. There is an example in
-[script/fn](script/fn). I've only tested in OSX (which uses BSD
+[util/fn](util/fn). I've only tested in OSX (which uses BSD
 commands) so GNU folks may need to update it. Once setup you'll get
 something like this:
 
