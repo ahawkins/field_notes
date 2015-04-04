@@ -77,6 +77,10 @@ class ViewingTest < MiniTest::Test
     def copyright_year
       find(:css, '#copyright-year').text.to_i
     end
+
+    def date
+      find(:css, 'header date').text
+    end
   end
 
   attr_reader :gui, :today
@@ -104,14 +108,22 @@ class ViewingTest < MiniTest::Test
     assert gui.date?('January 2012'), 'Dates incorrect'
   end
 
+  def test_monthly_view_displays_year_in_header
+    note = FieldNotes::Entry.new today, 'Note A', 'foo'
+
+    gui.data = [ note ]
+    gui.open_home_page
+    gui.click today.strftime("%B %Y")
+
+    assert today.strftime("%B %Y") == gui.date
+  end
+
   def test_entries_are_grouped_by_tag_on_monthly_view
     note_a = FieldNotes::Entry.new today, 'Note A', 'foo'
     note_b = FieldNotes::Entry.new today, 'Note B', 'bar'
 
     gui.data = [ note_a, note_b ]
-
     gui.open_home_page
-
     gui.click today.strftime("%B %Y")
 
     assert gui.section?(note_a.tag), 'Sections incorrect'
@@ -127,9 +139,7 @@ class ViewingTest < MiniTest::Test
     refute_equal note_a.month, note_b.month, 'Precondition failed'
 
     gui.data = [ note_a, note_b ]
-
     gui.open_home_page
-
     gui.click today.strftime("%B %Y")
 
     refute_note gui, note_a, 'Initial note incorrect'
@@ -148,9 +158,7 @@ class ViewingTest < MiniTest::Test
     refute_equal note_a.month, note_b.month, 'Precondition failed'
 
     gui.data = [ note_a, note_b ]
-
     gui.open_home_page
-
     gui.click today.strftime("%B %Y")
 
     refute_note gui, note_a, 'Initial note incorrect'
@@ -167,9 +175,7 @@ class ViewingTest < MiniTest::Test
     note = FieldNotes::Entry.new today, 'Note A', 'foo'
 
     gui.data = [ note ]
-
     gui.open_home_page
-
     gui.click today.strftime("%B %Y")
 
     refute gui.pagination?, 'Pagination incorrect'

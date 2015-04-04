@@ -81,5 +81,9 @@ module Views
         end
       end
     end
+
+    def date
+      @date.strftime "%B %Y"
+    end
   end
 end
