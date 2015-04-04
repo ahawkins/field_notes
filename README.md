@@ -4,7 +4,8 @@
 
 This repo contains a simple ruby web application for displaying "field
 notes". Its designed to be a companion during your day to day work to
-record and catalogue different thoughts on resources.
+record and catalogue different thoughts on resources. You can find out
+more about this repo and its code on my [blog][blog post].
 
 ## Testing
 
@@ -56,3 +57,4 @@ Next just commit the changes and push how you like.
 
 [redcarpet]: https://github.com/vmg/redcarpet
 [jekyll]: http://jekyllrb.com
+[blog post]: http://hawkins.io/2015/04/introducing-field-notes/
