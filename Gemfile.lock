@@ -41,7 +41,6 @@ DEPENDENCIES
   minitest
   mustache-sinatra
   puma
-  rack
   rack-test
   redcarpet
   shotgun
