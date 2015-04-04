@@ -66,6 +66,10 @@ li.date {
 	font-size: 1.4em;
 }
 
+.entry {
+	margin-bottom: 2.5em;
+}
+
 .pagination {
 	margin-top: 4em;
 	margin-bottom: 1em;
