@@ -2,7 +2,7 @@ module Views
   class Month < Mustache
     Link = Struct.new :date do
       def path
-        "/#{date.strftime("%Y-%m")}"
+        "/#{date.strftime("%Y/%m")}"
       end
     end
 

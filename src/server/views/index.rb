@@ -2,7 +2,7 @@ module Views
   class Index < Mustache
     DateLink = Struct.new :date do
       def link
-        "/#{date.strftime("%Y-%m")}"
+        "/#{date.strftime("%Y/%m")}"
       end
 
       def text

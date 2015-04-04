@@ -18,7 +18,7 @@ class Server < Sinatra::Base
     mustache :index
   end
 
-  get '/:year-:month' do |year, month|
+  get '/:year/:month' do |year, month|
     @date = Date.new year.to_i, month.to_i
 
     @entries = settings.entries
