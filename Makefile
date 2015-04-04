@@ -3,8 +3,11 @@ TESTS:=$(wildcard test/*_test.rb)
 tmp/scratch:
 	mkdir -p $@
 
+Gemfile.lock: Gemfile
+	bundle install
+
 .PHONY: test-src
-test-src:
+test-src: Gemfile.lock
 	@ruby -I$(CURDIR) $(foreach test,$(TESTS),-r $(test)) -e "exit"
 
 .PHONY: test-util
