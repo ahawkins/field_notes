@@ -17,6 +17,21 @@ setup() {
 	echo "$output" | grep -q "EDITOR"
 }
 
+@test "fails if FIELD_NOTES_PATH is not a directory" {
+	[ ! -d "/foo/bar/baz" ] # precondition for "fake" directory
+
+	editor="$(mktemp -t util_test)"
+	chmod +x "$editor"
+	cat > "$editor" <<-'EOF'
+#!/usr/bin/env bash
+echo "simulation" > "$1"
+EOF
+
+	run env EDITOR="$editor" FIELD_NOTES_PATH="/foo/bar/baz" $UTIL
+	[ $status -eq 1 ]
+	echo "$output" | grep -q "FIELD_NOTES_PATH"
+}
+
 @test "creates appropriate file when EDITOR succeeds" {
 	editor="$(mktemp -t util_test)"
 	chmod +x "$editor"

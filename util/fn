@@ -15,6 +15,11 @@ if [ -z "$field_notes_path" ]; then
 	exit 1
 fi
 
+if [ ! -d "$field_notes_path" ]; then
+	echo "FIELD_NOTES_PATH is not a directory!" 1>&2
+	exit 1
+fi
+
 date="$(date "+%Y-%m-%d")"
 name="$(echo "$@" | sed -E 's/[^A-Za-z0-9\-_]+/_/g')"
 
