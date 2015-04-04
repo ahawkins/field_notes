@@ -1,6 +1,4 @@
 require_relative 'test_helper'
-require 'fileutils'
-require 'capybara'
 
 class ViewingTest < MiniTest::Test
   class GUI

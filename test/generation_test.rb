@@ -1,9 +1,6 @@
 require_relative 'test_helper'
-require 'fileutils'
 
 class GenerationTest < MiniTest::Test
-  require 'yaml'
-
   def test_fails_if_files_does_not_lead_with_date
     Dir.mktmpdir do |dir|
       File.open File.join(dir, 'junk.md'), 'w' do |entry|

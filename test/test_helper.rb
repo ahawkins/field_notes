@@ -6,3 +6,5 @@ require "#{root}/boot"
 require 'bundler/setup'
 require 'minitest/autorun'
 require 'rack/test'
+require 'fileutils'
+require 'capybara'
