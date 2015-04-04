@@ -119,8 +119,8 @@ class ViewingTest < MiniTest::Test
     assert gui.section?(note_a.tag), 'Sections incorrect'
     assert gui.section?(note_b.tag), 'Sections incorrect'
 
-    assert gui.says?(note_a.content), 'Note not shown'
-    assert gui.says?(note_b.content), 'Note not shown'
+    assert_note gui, note_a, 'Note not shown'
+    assert_note gui, note_b, 'Note not shown'
   end
 
   def test_displays_previous_link_if_available
@@ -134,13 +134,13 @@ class ViewingTest < MiniTest::Test
 
     gui.click today.strftime("%B %Y")
 
-    refute gui.says?(note_a.content), 'Initial note incorrect'
-    assert gui.says?(note_b.content), 'Initial note incorrect'
+    refute_note gui, note_a, 'Initial note incorrect'
+    assert_note gui, note_b, 'Initial note incorrect'
 
     gui.open_previous_note
 
-    assert gui.says?(note_a.content), 'Previous note incorrect'
-    refute gui.says?(note_b.content), 'Previous note incorrect'
+    assert_note gui, note_a, 'Previous note incorrect'
+    refute_note gui, note_b, 'Previous note incorrect'
     refute gui.previous_notes?, 'Previous link incorrect'
   end
 
@@ -155,13 +155,13 @@ class ViewingTest < MiniTest::Test
 
     gui.click today.strftime("%B %Y")
 
-    refute gui.says?(note_a.content), 'Initial note incorrect'
-    assert gui.says?(note_b.content), 'Initial note incorrect'
+    refute_note gui, note_a, 'Initial note incorrect'
+    assert_note gui, note_b, 'Initial note incorrect'
 
     gui.open_next_note
 
-    assert gui.says?(note_a.content), 'next note incorrect'
-    refute gui.says?(note_b.content), 'next note incorrect'
+    assert_note gui, note_a, 'next note incorrect'
+    refute_note gui, note_b, 'next note incorrect'
     refute gui.next_notes?, 'next link incorrect'
   end
 
@@ -181,5 +181,15 @@ class ViewingTest < MiniTest::Test
     gui.open_home_page
 
     assert Date.today.year == gui.copyright_year
+  end
+
+  private
+
+  def assert_note(screen, note, message)
+    assert screen.says?(note.content), message
+  end
+
+  def refute_note(screen, note, message)
+    refute screen.says?(note.content), message
   end
 end
