@@ -75,6 +75,10 @@ class ViewingTest < MiniTest::Test
     def pagination?
       page.has_selector? '.pagination'
     end
+
+    def copyright_year
+      find(:css, '#copyright-year').text.to_i
+    end
   end
 
   attr_reader :gui, :today
@@ -171,5 +175,11 @@ class ViewingTest < MiniTest::Test
     gui.click today.strftime("%B %Y")
 
     refute gui.pagination?, 'Pagination incorrect'
+  end
+
+  def test_displays_copyright_year
+    gui.open_home_page
+
+    assert Date.today.year == gui.copyright_year
   end
 end
