@@ -8,5 +8,5 @@ most oit was completely over my head. It's nice to know that there are
 smart people working on Erlang. If anyting it encourages me to spend
 more time working on Erlang things.
 
-[link]: http://mostlyerlang.com/2015/03/17/471/
+[episode]: http://mostlyerlang.com/2015/03/17/471/
 [release project]: http://release-project.eu
